@@ -8,10 +8,11 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Fetch the list of joined organizations on page load
     const fetchJoinedOrgs = async () => {
+      const token = localStorage.getItem('token')
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('/api/user/joinedOrgs', token);
+        const response = await axios.get('/api/user/joined-orgs', token);
         setJoinedOrgs(response.data);
       } catch (error) {
         console.error('Error fetching joined organizations:', error);
@@ -36,7 +37,7 @@ const HomePage = () => {
   const fetchSearchResults = async (query) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token')
       const response = await axios.get(`/api/organisations/search?query=${query}`, token);
       setSearchResults(response.data);
     } catch (error) {
