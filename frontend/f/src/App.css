@@ -1,0 +1,79 @@
+/* Global styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* App container */
+.app-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header styles */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #222;
+  margin: 0;
+}
+
+/* Tag section */
+.tag-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tag-title {
+  font-size: 2rem;
+  color: #007bff;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+/* Organization list */
+.organization-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.organization-item {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.organization-item strong {
+  color: #333;
+}
+
+.organization-item:hover {
+  background-color: #f1f1f1;
+  border-color: #ddd;
+}
+
+/* Loading and error messages */
+.loading,
+.error {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #666;
+  margin: 50px 0;
+}
