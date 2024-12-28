@@ -1,10 +1,9 @@
 // Import Mongoose
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-
-mongoose.connect("mongodb://localhost:27017").then(() => {
-  console.log(`Data base connection success`)
-})
+mongoose.connect("mongodb://localhost:27017/hack").then(() => {
+  console.log('Database connection success');
+});
 
 // User Schema
 const userSchema = new mongoose.Schema({
@@ -26,17 +25,16 @@ const postSchema = new mongoose.Schema({
       createdAt: { type: Date, default: Date.now },
     }
   ],
-  tags: [{ type: String }], // Flair-like tags
+  tags: [{ type: String }],
 }, { timestamps: true });
 
-// Organisation/Community Schema
 const organisationSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   posts: [postSchema],
   postCount: { type: Number, default: 0 },
+  tagsOrg: [{ type: String }],
 }, { timestamps: true });
 
-// User-to-Organisation Schema
 const userToOrganisationSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   organisations: [
@@ -48,23 +46,15 @@ const userToOrganisationSchema = new mongoose.Schema({
   organisationCount: { type: Number, default: 0 },
 }, { timestamps: true });
 
-// Admin Schema
 const adminSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   organisationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Organisation', required: true },
 }, { timestamps: true });
 
-// Models
 const User = mongoose.model('User', userSchema);
 const Organisation = mongoose.model('Organisation', organisationSchema);
 const UserToOrganisation = mongoose.model('UserToOrganisation', userToOrganisationSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 
-// Export Models
-module.exports = {
-  User,
-  Organisation,
-  UserToOrganisation,
-  Admin,
-};
-
+// Export Models using ES module syntax
+export { User, Organisation, UserToOrganisation, Admin };

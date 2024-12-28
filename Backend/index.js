@@ -1,11 +1,10 @@
-// app.ts
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import userRouter from './routes/user'; 
+// import dotenv from 'dotenv';
+import userRouter from './routes/user.js';
 
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
 

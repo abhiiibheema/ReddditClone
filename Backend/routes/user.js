@@ -1,9 +1,9 @@
-// routes/user.js
-const { Router } = require('express');
-const { z } = require('zod');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User'); 
-const verifyToken = require('../middleware/auth');
+import { Router } from 'express';
+import { z } from 'zod';
+import jwt from 'jsonwebtoken';
+
+import verifyToken from '../middleware/auth.js'; 
+import { User } from '../db/index.js';
 
 const userRouter = Router();
 
@@ -48,6 +48,7 @@ userRouter.post('/signup', async (req, res) => {
   }
 });
 
+// POST: Sign in
 userRouter.post('/signin', async (req, res) => {
   const body = req.body;
   const parsedInput = signinInput.safeParse(body);
@@ -73,8 +74,9 @@ userRouter.post('/signin', async (req, res) => {
   }
 });
 
+// GET: Auth check
 userRouter.get('/auth', verifyToken, async (req, res) => {
   res.status(200).json({});
 });
 
-module.exports = userRouter;
+export default userRouter;
