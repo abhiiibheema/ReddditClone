@@ -4,10 +4,10 @@ import jwt from 'jsonwebtoken';
 
 import verifyToken from '../middleware/auth.js'; 
 import { User } from '../db/index.js';
+import { UserToOrganisation, Organisation } from '../db/index.js';
 
 const userRouter = Router();
 
-// Validation schemas
 const signupInput = z.object({
   username: z.string().email(),
   password: z.string().min(6),
@@ -19,7 +19,6 @@ const signinInput = z.object({
   password: z.string().min(6),
 });
 
-// POST: Sign up
 userRouter.post('/signup', async (req, res) => {
   const body = req.body;
   const parsedInput = signupInput.safeParse(body);
@@ -74,9 +73,27 @@ userRouter.post('/signin', async (req, res) => {
   }
 });
 
-// GET: Auth check
 userRouter.get('/auth', verifyToken, async (req, res) => {
   res.status(200).json({});
+});
+
+userRouter.get('/:userId/organizations', async (req, res) => {
+  const { userId } = req.params; 
+
+  try {
+    const userOrgData = await UserToOrganisation.findOne({ userId }).populate('organisations.organisationId');
+
+    if (!userOrgData) {
+      return res.status(404).json({ message: 'User has not joined any organizations' });
+    }
+
+    const organizations = userOrgData.organisations.map(org => org.organisationId);
+
+    return res.status(200).json(organizations); 
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Server error', error });
+  }
 });
 
 export default userRouter;

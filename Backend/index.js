@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 // import dotenv from 'dotenv';
 import userRouter from './routes/user.js';
+import OrgRouter from './routes/org.js';
 
 
 // dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/v1/users', userRouter);
+app.use("/test/orgs", OrgRouter);
 
 
 // Default route
